@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <title>Issued Books</title>
+     <style media="screen">
+       /* Background with Decent Gradient */
+       body {
+           background: linear-gradient(135deg, #d4e4f7, #b8c6db);
+           font-family: 'Arial', sans-serif;
+           margin: 0;
+           padding: 20px;
+       }
+
+       /* Page Title */
+       h3 {
+           text-align: center;
+           font-size: 28px;
+           color: #333;
+           background: #4a6f8e;
+           padding: 15px;
+           border-radius: 8px;
+           color: white;
+           margin-bottom: 20px;
+       }
+
+       /* Table Wrapper for Responsiveness */
+       .table-container {
+           width: 100%;
+           overflow-x: auto;
+       }
+
+       /* Table Styling */
+       table.redTable {
+           border: 2px solid #4a6f8e;
+           background-color: #ffffff;
+           width: 100%;
+           text-align: center;
+           border-collapse: collapse;
+           border-radius: 8px;
+           overflow: hidden;
+           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+           min-width: 700px; /* Ensures proper structure on small screens */
+       }
+
+       table.redTable th, table.redTable td {
+           border: 1px solid #cccccc;
+           padding: 10px;
+           font-size: 14px;
+           white-space: nowrap; /* Prevents content from breaking */
+       }
+
+       table.redTable thead {
+           background: #4a6f8e;
+           color: white;
+       }
+
+       table.redTable tbody tr:nth-child(even) {
+           background: #f3f6fb;
+       }
+
+       table.redTable tfoot {
+           background: #4a6f8e;
+           color: white;
+           font-weight: bold;
+       }
+
+       /* Delete Button */
+       .btn-delete {
+           background: #456987;
+           color: white;
+           border: none;
+           padding: 6px 12px;
+           border-radius: 5px;
+           cursor: pointer;
+           font-size: 14px;
+       }
+
+       .btn-delete:hover {
+           background: #a8241e;
+       }
+
+       /* Footer Spacing */
+       .footer-space {
+           margin-top: 40px;
+       }
+
+       /* Responsive Design */
+       @media screen and (max-width: 768px) {
+           body {
+               padding: 10px;
+           }
+
+           .table-container {
+               width: 100%;
+               overflow-x: auto;
+           }
+
+           .btn-delete {
+               font-size: 12px;
+               padding: 5px 10px;
+           }
+       }
+     </style>
+   </head>
+   <body>
+     {% include "navbaradmin.html" %}
+     <br>
+     <h3>Issued Books to Students</h3>
+
+     {% if li %}
+     <div class="table-container">
+       <table class="redTable">
+         <thead>
+           <tr>
+             <th>Student Name</th>
+             <th>Enrollment</th>
+             <th>Book Name</th>
+             <th>Author</th>
+             <th>Issued</th>
+             <th>Expiry Date</th>
+             <th>Fine</th>
+             <th>Action</th>
+           </tr>
+         </thead>
+         <tbody>
+           {% for t in li %}
+             <tr>
+               <td>{{ t.0 }}</td>
+               <td>{{ t.1 }}</td>
+               <td>{{ t.2 }}</td>
+               <td>{{ t.3 }}</td>
+               <td>{{ t.4 }}</td>
+               <td>{{ t.5 }}</td>
+               <td>{{ t.6 }}</td>
+               <td>
+                  <form method="POST" action="{% url 'delete_issued_book' t.7 %}" onsubmit="return confirm('Are you sure you want to delete this issued book?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-delete">Delete</button>
+                  </form>
+               </td>
+             </tr>
+           {% endfor %}
+         </tbody>
+         <tfoot>
+           <tr>
+             <td colspan="8">Total Issued Books: {{ li|length }}</td>
+           </tr>
+         </tfoot>
+       </table>
+     </div>
+     {% else %}
+     <h1 style="text-align: center; color: #555;">No Books Issued</h1>
+     {% endif %}
+
+     <div class="footer-space"></div>
+     {% include "footer.html" %}
+   </body>
+</html>

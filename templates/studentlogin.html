@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>LMS Django</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: black;
+            background: url('{% static "images/studentclick.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .signup-form {
+            width: 500px;
+            margin: 100px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.2); /* Transparent background */
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+			margin-right: 10%;
+        }
+        .signup-form h2 {
+            color: #000000;
+            border-bottom: 3px solid #ffffff;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        .btn {
+            border-radius: 5px;
+            background: #4a5fdb;
+            border: #a8b1e4;
+        }
+        .btn:hover {
+            background: #2c48e9;
+        }
+        .alert {
+            background-color: white;
+        }
+        @media (max-width: 768px) {
+    .signup-form {
+        width: 90%;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .form-group {
+        text-align: center;
+    }
+
+    .form-group label {
+        display: block;
+        text-align: center;
+    }
+
+    .form-group .col-xs-8 {
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-form {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h3.alert {
+        font-size: 18px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+}
+
+    </style>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+    <br><br>
+    <center><h3 class='alert alert-success'>Login As Student!</h3></center>
+    <div class="signup-form">
+        <form method="post" class="form-horizontal">
+            <center><h2>Student Login</h2></center>
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group text-center">
+                <label class="control-label col-xs-4">{{ field.label_tag }}</label>
+                <div class="col-xs-8">{{ field }}</div>
+            </div>
+            {% endfor %}
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success btn-lg">Login</button>
+            </div>
+        </form>
+        <div class="text-center"><b>Do not have an account? <a href="{% url 'studentsignup' %}">Signup here</a></b></div>
+    </div>
+    {% include "footer.html" %}
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registered Students</title>
+
+    <style media="screen">
+      /* Background with Decent Gradient */
+      body {
+        background: linear-gradient(135deg, #d4e4f7, #b8c6db);
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      /* Page Title */
+      h3 {
+        text-align: center;
+        font-size: 28px;
+        color: #fff;
+        background: #4a6f8e;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      /* Table Wrapper for Responsiveness */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      /* Table Styling */
+      table.redTable {
+        margin-left: 5%;
+        border: 2px solid #4a6f8e;
+        background-color: #ffffff;
+        width: 90%;
+        text-align: center;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        min-width: 600px; /* Ensures proper structure on small screens */
+      }
+
+      table.redTable th, table.redTable td {
+        border: 1px solid #cccccc;
+        padding: 10px;
+        font-size: 14px;
+        white-space: nowrap; /* Prevents content from breaking */
+      }
+
+      table.redTable thead {
+        background: #4a6f8e;
+        color: white;
+      }
+
+      table.redTable tbody tr:nth-child(even) {
+        background: #f3f6fb;
+      }
+
+      table.redTable tfoot {
+        background: #4a6f8e;
+        color: white;
+        font-weight: bold;
+      }
+
+      /* Delete Button */
+      .btn-delete {
+        background: #4a6f8e;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .btn-delete:hover {
+        background: #c9302c;
+      }
+
+      /* Footer Spacing */
+      .footer-space {
+        margin-top: 40px;
+      }
+
+      /* Responsive Design */
+      @media screen and (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .table-container {
+          width: 100%;
+          overflow-x: auto;
+        }
+
+        .btn-delete {
+          font-size: 12px;
+          padding: 5px 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include "navbaradmin.html" %}
+    <br>
+    <h3>Registered Students</h3>
+
+    {% if students %}
+    <div class="table-container">
+      <table class="redTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Enrollment</th>
+            <th>Branch</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in students %}
+          <tr>
+            <td>{{ s.user }}</td>
+            <td>{{ s.enrollment }}</td>
+            <td>{{ s.branch }}</td>
+            <td>
+              <form method="POST" action="{% url 'deletestudent' s.id %}" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">Total Students Registered: {{ students|length }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    {% else %}
+    <h1 style="text-align: center; color: #555;">No Student Registered in Library</h1>
+    {% endif %}
+
+    <div class="footer-space"></div>
+    {% include "footer.html" %}
+  </body>
+</html>

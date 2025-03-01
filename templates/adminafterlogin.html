@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style media="screen">
+        /* Background with Particle Animation */
+        body {
+            background: linear-gradient(135deg, #548f9c, #e4fff4);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Particle Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Jumbotron */
+        .jumbotron {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 30px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #548f9c, #eff6f7);
+            animation: fadeIn 3s ease-in-out;
+            position: relative;
+            /* z-index: 1; */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .jumbotron h1 {
+            text-align: center;
+            color: #03080c;
+            font-weight: 400;
+        }
+
+        /* Options Styling */
+        .options {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1s ease-in-out forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .options a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            background-color: #5aaaff;
+            color: white;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .options a:hover {
+            background-color: #bad7f6;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    {% include "navbaradmin.html" %}
+
+    <div class="jumbotron">
+        <h1 class="display-4">Hello {{ user.first_name }}!</h1>
+        <p class="lead">As you are Admin, you can add a book to the library, view available books,
+            issue books to students, view issued books, and more!
+        </p>
+        <hr class="my-4">
+        <p>Options Available For You</p>
+        <div class="options">
+            <a href="{% url 'addbook' %}" class="btn">Add Book To Library</a><br><br>
+            <a href="{% url 'viewbook' %}" class="btn">View Available Books</a><br><br>
+            <a href="{% url 'issuebook' %}" class="btn">Issue New Book</a><br><br>
+            <a href="{% url 'viewissuedbook' %}" class="btn">View Issued Books</a><br><br>
+            <a href="{% url 'viewstudent' %}" class="btn">View Students</a>
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+
+    <script>
+        // Initialize Particles.js for continuous animation
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": { "enable": true, "value_area": 800 }
+                },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "out_mode": "out"
+                }
+            },
+            "interactivity": {
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" },
+                    "onclick": { "enable": true, "mode": "push" }
+                },
+                "modes": {
+                    "repulse": { "distance": 100, "duration": 0.4 },
+                    "push": { "particles_nb": 4 }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

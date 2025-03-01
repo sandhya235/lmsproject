@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style media="screen">
+      body{
+        background: linear-gradient(135deg, #d4e4f7, #b6e7e2);
+      }
+      /* Apply Poppins Font to Webpage Content */
+      .container, h3, table, th, td, .btn {
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      }
+
+      .table-responsive {
+        overflow-x: auto;
+        max-width: 100%;
+      }
+
+      table.redTable {
+        border: 2px solid #00796B;
+        background-color: #E0F2F1;
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+        white-space: nowrap; /* Prevent text wrapping inside table */
+      }
+
+      table.redTable td, table.redTable th {
+        border: 1px solid #AAAAAA;
+        padding: 10px;
+      }
+
+      table.redTable tbody td {
+        font-size: 14px;
+      }
+
+      table.redTable tr:nth-child(even) {
+        background: #B2DFDB;
+      }
+
+      table.redTable thead {
+        background: #00796B;
+      }
+
+      table.redTable thead th {
+        font-size: 19px;
+        font-weight: bold;
+        color: #FFFFFF;
+        text-align: center;
+        border-left: 2px solid #00796B;
+      }
+
+      table.redTable thead th:first-child {
+        border-left: none;
+      }
+
+      table.redTable tfoot {
+        font-size: 13px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #00796B;
+      }
+
+      table.redTable tfoot .links {
+        text-align: right;
+      }
+
+      table.redTable tfoot .links a {
+        display: inline-block;
+        background: #FFFFFF;
+        color: #00796B;
+        padding: 2px 8px;
+        border-radius: 5px;
+      }
+
+      .btn-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+        max-width: 200px; /* Restricts width on larger screens */
+        text-align: center;
+        display: block;
+      }
+
+      .btn-add {
+        background-color: #00796B;
+        color: white;
+      }
+
+      .btn-delete {
+        background-color: #C62828;
+        color: white;
+      }
+
+      @media screen and (max-width: 600px) {
+        .btn-container {
+          flex-direction: column;
+          align-items: center;
+        }
+        .btn {
+          width: 90%; /* Makes buttons full-width on mobile */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include "navbaradmin.html" %}
+    <br>
+    <br>
+    <center><h3 class="p-3 mb-2 text-white" 
+      style="font-size: 30px; text-align:center; background-color: #00796B; padding: 15px; border-radius: 5px;width: 97%;height: 60px;">
+      Available Books in Library
+  </h3></center>
+  
+    <div class="container">
+      {% if books %}
+      <div class="table-responsive">
+        <table class="table table-hover table-condensed table-striped table-bordered redTable">
+          <thead>
+            <tr>
+              <th>Book Name</th>
+              <th>ISBN</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Actions</th>  
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td colspan="5">
+                <div class="links"></div>
+              </td>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for book in books %}
+            <tr>
+              <td>{{ book.name }}</td>
+              <td>{{ book.isbn }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.category }}</td>
+              <td>
+                <form method="POST" action="{% url 'deletebook' book.id %}" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-delete">Delete</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Centered Add Book Button Below Table -->
+      <center>
+        <div class="btn-container">
+          <a href="{% url 'addbook' %}" class="btn btn-add">Add Book</a>
+        </div>
+      </center>
+
+      {% else %}
+      <h1 style="text-align: center;">No books available</h1>
+
+      <!-- Add Book Button when no books available -->
+      <center>
+        <div class="btn-container">
+          <a href="{% url 'addbook' %}" class="btn btn-add">Add Book</a>
+        </div>
+      </center>
+
+      {% endif %}
+    </div>
+
+    <br><br><br><br><br><br><br><br><br>
+    {% include "footer.html" %}
+  </body>
+</html>

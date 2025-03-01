@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Library Management System</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<style>
+  body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0F172A, #1E293B);
+      color: white;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .carousel-item img {
+      height: 80vh;
+      object-fit: cover;
+      filter: blur(1px);
+      opacity: 0.6;
+  }
+
+  .overlay-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  }
+
+  .panel {
+      text-align: center;
+      margin: 155px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(25px);
+  }
+
+  .panel img {
+      width: 150px;
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+  }
+
+  .btn-custom {
+      background: linear-gradient(45deg, #2563EB, #3B82F6);
+      color: white;
+      border-radius: 10px;
+      font-size: 18px;
+      padding: 10px 25px;
+      border: none;
+      transition: 0.3s;
+  }
+
+  .btn-custom:hover {
+      background: linear-gradient(45deg, #1E40AF, #2563EB);
+  }
+
+  .jumbotron {
+      position: relative;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 15px 0;
+      text-align: center;
+  }
+
+  @media (max-width: 768px) {
+      .overlay-container {
+          flex-direction: column;
+      }
+      .panel {
+          width: 80%;
+      }
+  }
+</style>
+</head>
+<body>
+  {% include "navbar.html" %}
+
+<!-- Carousel Section -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{% static 'images/library.jpg' %}" alt="Library Background">
+    </div>
+  </div>
+</div>
+
+<!-- Overlay Panels -->
+<div class="overlay-container">
+  <div class="panel">
+    <img src="{% static 'images/setting.png' %}" alt="Admin Icon">
+    <a class="btn btn-custom btn-lg mt-3" href="{% url 'adminclick' %}">Admin Panel</a>
+  </div>
+  <div class="panel">
+    <img src="{% static 'images/user.png' %}" alt="Student Icon">
+    <a class="btn btn-custom btn-lg mt-3" href="{% url 'studentclick' %}">Student Panel</a>
+  </div>
+</div>
+
+<!-- Jumbotron Section -->
+<div class="jumbotron">
+  <h1 class="display-4">Library Management System</h1>
+  <p class="lead">A service dedicated to Admins and Students. Providing online resources, professional support, and guidance.</p>
+</div>
+</body>
+</html>

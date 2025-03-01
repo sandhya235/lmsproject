@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    .bs-example {
+        margin: 0px;
+    }
+
+    /* Transparent Navbar with Blur */
+    .navbar {
+        background: rgba(0, 0, 0, 0.2); /* Semi-transparent */
+        backdrop-filter: blur(10px);
+        transition: background 0.4s ease;
+    }
+
+    /* Change navbar background color on scroll */
+    .navbar.scrolled {
+        background: rgba(0, 0, 0, 0.7); /* Darker when scrolling */
+    }
+
+    .navbar-brand {
+        font-size: 24px;
+        font-family: sans-serif;
+        color: white !important;
+    }
+
+    .nav-item .nav-link {
+        color: white !important;
+        font-weight: bold;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .nav-item .nav-link:hover {
+        color: #f8f9fa !important;
+        text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+    }
+
+    .navbar-toggler {
+        border: none;
+        outline: none;
+    }
+
+    /* Responsive Navbar */
+    @media (max-width: 768px) {
+        .navbar-nav {
+            text-align: center;
+        }
+        .navbar-collapse {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .navbar-nav .nav-link {
+            padding: 10px 15px;
+            display: block;
+        }
+    }
+</style>
+
+<!-- jQuery for Scroll Effect -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 50) {
+                $('.navbar').addClass('scrolled');
+            } else {
+                $('.navbar').removeClass('scrolled');
+            }
+        });
+    });
+</script>
+</head>
+
+<body>
+<div class="bs-example">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+        <a href="/" class="navbar-brand">SLMS</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="navbar-nav"></div>
+            <div class="navbar-nav">
+                <a href="/" class="nav-item nav-link active">Home</a>
+                <a href="{% url 'adminclick' %}" class="nav-item nav-link">Admin</a>
+                <a href="{% url 'studentclick' %}" class="nav-item nav-link">Student</a>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Issued Books</title>
+
+<style media="screen">
+/* Table Styling */
+table.redTable {
+  border: 0px solid #7b7b7c; /* Dark Red Border */
+  background-color: #FAF3F3; /* Light Background */
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+table.redTable td, table.redTable th {
+  border: 1px solid #AAAAAA;
+  padding: 8px;
+}
+
+table.redTable tbody td {
+  font-size: 14px;
+  color: #333; /* Darker Text for Readability */
+}
+
+table.redTable tr:nth-child(even) {
+  background: #d4d4d5; /* Soft Red Shade */
+}
+
+table.redTable thead {
+  background: #7b7b7c; /* Dark Red Header */
+}
+
+table.redTable thead th {
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  border-left: 1px solid #7b7b7c;
+}
+
+table.redTable thead th:first-child {
+  border-left: none;
+}
+
+table.redTable tfoot {
+  font-size: 13px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #7b7b7c;
+}
+
+table.redTable tfoot td {
+  font-size: 13px;
+}
+
+table.redTable tfoot .links {
+  text-align: right;
+}
+
+table.redTable tfoot .links a {
+  display: inline-block;
+  background: #FFFFFF;
+  color: #7b7b7c;
+  padding: 5px 10px;
+  border-radius: 1px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Header Styling */
+h3 {
+  background: #7b7b7c; /* Crimson Red */
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  width: 95%;
+  
+}
+.row{
+  width: 90%;
+  border-radius: 30%;
+}
+@media (max-width: 992px) {
+    .row {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .col-lg-6 {
+        width: 100%;
+        padding: 0;
+    }
+
+    table.redTable {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    h3 {
+        font-size: 30px;
+        padding: 10px;
+        width: 90%;
+    }
+}
+
+@media (max-width: 576px) {
+    table.redTable th, table.redTable td {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+}
+
+</style>
+
+  </head>
+  <body>
+  {% include "navbarstudent.html" %}<br><br>
+  <center><h3>Book Issued To You</h3></center>
+<center>
+  <br>
+<div class="row">
+  <div class="col-lg-6" style="padding-right:0px;">
+    {% if li1 %}
+    <table class="redTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Enrollment</th>
+          <th>Branch</th>
+          <th>Book Name</th>
+          <th>Author</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="5">
+            <div class="links"></div>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        {% for t in li1 %}
+        <tr>
+          <td>{{ t.0 }}</td>
+          <td>{{ t.1 }}</td>
+          <td>{{ t.2 }}</td>
+          <td>{{ t.3 }}</td>
+          <td>{{ t.4 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-lg-6" style="padding-left:0px;">
+    <table class="redTable">
+      <thead>
+        <tr>
+          <th>Issue Date</th>
+          <th>Expiry Date</th>
+          <th>Fine</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <div class="links"></div>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        {% for t in li2 %}
+        <tr>
+          <td>{{ t.0 }}</td>
+          <td>{{ t.1 }}</td>
+          <td>{{ t.2 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <h1>No books issued to you</h1>
+    {% endif %}
+  </div>
+</div>
+<br><br><br>
+{% include "footer.html" %}
+</center>
+<br><br><br>
+</body>
+</html>
+
